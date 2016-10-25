@@ -419,7 +419,7 @@ class Mongo extends Adapter
      * @return boolean
      * @throws \Phalcon\Acl\Exception
      */
-    protected function insertOneOrUpdateAccess($roleName, $resourceName, $accessName, $action)
+    protected function insertOrUpdateAccess($roleName, $resourceName, $accessName, $action)
     {
         /**
          * Check if the access is valid in the resource
@@ -496,7 +496,7 @@ class Mongo extends Adapter
         }
 
         foreach ($access as $accessName) {
-            $this->insertOneOrUpdateAccess($roleName, $resourceName, $accessName, $action);
+            $this->insertOrUpdateAccess($roleName, $resourceName, $accessName, $action);
         }
     }
 }
