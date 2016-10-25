@@ -105,12 +105,12 @@ class Mongo extends Adapter
         $exists = $roles->count(['name' => $role->getName()]);
 
         if (!$exists) {
-            $roles->insert([
+            $roles->insertOne([
                 'name'        => $role->getName(),
                 'description' => $role->getDescription()
             ]);
 
-            $this->getCollection('accessList')->insert([
+            $this->getCollection('accessList')->insertOne([
                 'roles_name'     => $role->getName(),
                 'resources_name' => '*',
                 'access_name'    => '*',
@@ -186,7 +186,7 @@ class Mongo extends Adapter
 
         $exists = $resources->count(['name' => $resource->getName()]);
         if (!$exists) {
-            $resources->insert([
+            $resources->insertOne([
                 'name'        => $resource->getName(),
                 'description' => $resource->getDescription()
             ]);
@@ -225,7 +225,7 @@ class Mongo extends Adapter
                 'access_name'    => $accessName
             ]);
             if (!$exists) {
-                $resourcesAccesses->insert([
+                $resourcesAccesses->insertOne([
                     'resources_name' => $resourceName,
                     'access_name'    => $accessName
                 ]);
@@ -357,7 +357,7 @@ class Mongo extends Adapter
             'access_name'    => $access
         ]);
 
-        if (is_array($access)) {
+        if (is_object($access)) {
             return (bool) $access['allowed'];
         }
 
@@ -370,7 +370,7 @@ class Mongo extends Adapter
             'access_name'    => '*'
         ]);
 
-        if (is_array($access)) {
+        if (is_object($access)) {
             return (bool) $access['allowed'];
         }
 
@@ -445,7 +445,7 @@ class Mongo extends Adapter
         ]);
 
         if (!$access) {
-            $accessList->insert([
+            $accessList->insertOne([
                 'roles_name'     => $roleName,
                 'resources_name' => $resourceName,
                 'access_name'    => $accessName,
@@ -466,7 +466,7 @@ class Mongo extends Adapter
         ]);
 
         if (!$exists) {
-            $accessList->insert([
+            $accessList->insertOne([
                 'roles_name'     => $roleName,
                 'resources_name' => $resourceName,
                 'access_name'    => '*',
